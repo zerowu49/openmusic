@@ -29,7 +29,7 @@ class MusicService {
     const updatedAt = insertedAt;
 
     const query = {
-      text: 'INSERT INTO openmusic VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
+      text: 'INSERT INTO songs VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
       values: [id, title, year, performer, genre, duration, insertedAt, updatedAt],
     };
 
@@ -42,13 +42,13 @@ class MusicService {
   }
 
   async getMusics() {
-    const result = await this._pool.query('SELECT * FROM openmusic');
+    const result = await this._pool.query('SELECT * FROM songs');
     return result.rows.map(mapDBToGetMusic);
   }
 
   async getMusicById(songId) {
     const query = {
-      text: 'SELECT * FROM openmusic WHERE id = $1',
+      text: 'SELECT * FROM songs WHERE id = $1',
       values: [songId],
     };
     const result = await this._pool.query(query);
@@ -68,7 +68,7 @@ class MusicService {
   }) {
     const updatedAt = new Date().toISOString();
     const query = {
-      text: 'UPDATE openmusic SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, updated_at = $6 WHERE id = $7 RETURNING id',
+      text: 'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, updated_at = $6 WHERE id = $7 RETURNING id',
       values: [title, year, performer, genre, duration, updatedAt, songId],
     };
 
@@ -81,7 +81,7 @@ class MusicService {
 
   async deleteMusicById(songId) {
     const query = {
-      text: 'DELETE FROM openmusic WHERE id = $1 RETURNING id',
+      text: 'DELETE FROM songs WHERE id = $1 RETURNING id',
       values: [songId],
     };
 
