@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
@@ -16,12 +17,12 @@ class UsersHandler {
       const {
         username,
         password,
-        fullname
+        fullname,
       } = request.payload;
       const userId = await this._service.addUser({
         username,
         password,
-        fullname
+        fullname,
       });
       const response = h.response({
         status: 'success',

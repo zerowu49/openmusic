@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
@@ -18,14 +19,14 @@ class AuthenticationsHandler {
       this._validator.validatePostAuthenticationPayload(request.payload);
       const {
         username,
-        password
+        password,
       } = request.payload;
       const id = await this._usersService.verifyUserCredential(username, password);
       const accessToken = this._tokenManager.generateAccessToken({
-        id
+        id,
       });
       const refreshToken = this._tokenManager.generateRefreshToken({
-        id
+        id,
       });
       await this._authenticationsService.addRefreshToken(refreshToken);
       const response = h.response({
@@ -64,14 +65,14 @@ class AuthenticationsHandler {
       this._validator.validatePutAuthenticationPayload(request.payload);
 
       const {
-        refreshToken
+        refreshToken,
       } = request.payload;
       await this._authenticationsService.verifyRefreshToken(refreshToken);
       const {
-        id
+        id,
       } = this._tokenManager.verifyRefreshToken(refreshToken);
       const accessToken = this._tokenManager.generateAccessToken({
-        id
+        id,
       });
       return {
         status: 'success',

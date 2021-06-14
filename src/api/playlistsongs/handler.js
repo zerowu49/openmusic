@@ -19,7 +19,7 @@ class PlaylistsongHandler {
       const { playlistId } = request.params;
       const { songId } = request.payload;
       await this._playlistsService.verifyPlaylistAccess(playlistId, songId, credentialId);
-      const playlistsongId = await this._playlistsongsService.addPlaylistsong(playlistId, songId);
+      await this._playlistsongsService.addPlaylistsong(playlistId, songId);
       const response = h.response({
         status: 'success',
         message: 'Lagu berhasil ditambahkan ke playlist',
@@ -42,12 +42,11 @@ class PlaylistsongHandler {
         message: 'Maaf, terjadi kegagalan pada server kami.',
       });
       response.code(500);
-      console.error(error);
       return response;
     }
   }
 
-  async getPlaylistsongHandler(request,h){
+  async getPlaylistsongHandler(request, h) {
     try {
       this._validator.validatePlaylistSongPayload(request.payload);
       const { id: credentialId } = request.auth.credentials;
@@ -78,7 +77,6 @@ class PlaylistsongHandler {
         message: 'Maaf, terjadi kegagalan pada server kami.',
       });
       response.code(500);
-      console.error(error);
       return response;
     }
   }
@@ -111,7 +109,6 @@ class PlaylistsongHandler {
         message: 'Maaf, terjadi kegagalan pada server kami.',
       });
       response.code(500);
-      console.error(error);
       return response;
     }
   }

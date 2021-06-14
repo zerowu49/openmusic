@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
 class PlaylistHandler {
@@ -14,9 +15,9 @@ class PlaylistHandler {
     try {
       // Validate using Joi Validation
       this._validator.validatePlaylistPayload(request.payload);
-      const {name} = request.payload;
+      const { name } = request.payload;
       const { id: credentialId } = request.auth.credentials;
-      const playlistId = await this._service.addPlaylist({name,owner:credentialId});
+      const playlistId = await this._service.addPlaylist({ name, owner: credentialId });
 
       const response = h.response({
         status: 'success',
@@ -45,7 +46,7 @@ class PlaylistHandler {
     }
   }
 
-  async getPlaylistHandler(request, h){
+  async getPlaylistHandler(request, h) {
     try {
       const { id: owner } = request.auth.credentials;
       const playlists = await this._service.getPlaylist(owner);
@@ -74,17 +75,17 @@ class PlaylistHandler {
     }
   }
 
-  async deletePlaylistByIdHandler(request, h){
+  async deletePlaylistByIdHandler(request, h) {
     try {
       const {
         playlistsId,
       } = request.params;
       const { id: owner } = request.auth.credentials;
-      await this._service.verifyPlaylistOwner(playlistsId,owner);
+      await this._service.verifyPlaylistOwner(playlistsId, owner);
       await this._service.deletePlaylist(playlistsId);
       return {
         status: 'success',
-        message: "Playlist berhasil dihapus",
+        message: 'Playlist berhasil dihapus',
       };
     } catch (error) {
       if (error instanceof ClientError) {

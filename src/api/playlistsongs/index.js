@@ -5,12 +5,12 @@ module.exports = {
   name: 'playlistsongs',
   version: '1.0.0',
   register: async (server, {
-    playlistsongsService, 
+    playlistsongsService,
     playlistsService,
     validator,
   }) => {
     const playlistsongHandler = new PlaylistsongHandler(
-      playlistsongsService, 
+      playlistsongsService,
       playlistsService,
       validator,
     );

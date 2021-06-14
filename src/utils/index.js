@@ -36,5 +36,5 @@ const mapDBToGetMusic = ({
 });
 
 module.exports = {
-  mapDBToModel, mapDBToGetMusic
+  mapDBToModel, mapDBToGetMusic,
 };
