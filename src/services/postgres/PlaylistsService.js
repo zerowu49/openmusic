@@ -5,17 +5,14 @@ const {
 const {
     nanoid,
 } = require('nanoid');
-const {
-    mapDBToGetPlaylist,
-} = require('../../utils');
 const InvariantError = require('../../exceptions/InvariantError');
-
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class PlaylistsService {
-    constructor() {
+    constructor(playlistsongsService) {
         this._pool = new Pool();
+        this._playlistsongsService = playlistsongsService;
     }
 
     async addPlaylist({
@@ -63,7 +60,6 @@ class PlaylistsService {
 
 
     async verifyPlaylistOwner(id, owner) {
-        // console.log(`id: ${id}`);
         const query = {
             text: 'SELECT * FROM playlists WHERE id = $1',
             values: [id],
@@ -78,20 +74,22 @@ class PlaylistsService {
         }
     }
 
+    async verifyPlaylistAccess(playlistId, songId, userId) {
+        try {
+            await this.verifyPlaylistOwner(playlistId, userId);
+        } catch (error) {
+            if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+                throw error;
+            }
+            try {
+                await this._playlistsongsService.verifyPlaylistsong(playlistId, songId);
+            } catch {
+                throw error;
+            }
+        }
+    }
 
-    // TODO: Check dibawah ini
-    // async getMusicById(songId) {
-    //     const query = {
-    //         text: 'SELECT * FROM songs WHERE id = $1',
-    //         values: [songId],
-    //     };
-    //     const result = await this._pool.query(query);
-    //     if (!result.rows.length) {
-    //         throw new NotFoundError('Lagu tidak ditemukan');
-    //     }
 
-    //     return result.rows.map(mapDBToModel)[0];
-    // }
 }
 
 module.exports = PlaylistsService;

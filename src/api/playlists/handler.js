@@ -80,8 +80,6 @@ class PlaylistHandler {
         playlistsId,
       } = request.params;
       const { id: owner } = request.auth.credentials;
-      // console.log(`playlistId: ${playlistsId}`);
-
       await this._service.verifyPlaylistOwner(playlistsId,owner);
       await this._service.deletePlaylist(playlistsId);
       return {
