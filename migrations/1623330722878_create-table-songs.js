@@ -37,6 +37,19 @@ exports.up = pgm => {
             notNull: true,
         },
     })
+
+    // SQL QUERY:
+    // CREATE TABLE songs(
+    //     id VARCHAR(50) PRIMARY KEY,
+    //     title TEXT NOT NULL,
+    //     year INT NOT NULL,
+    //     performer TEXT NOT NULL,
+    //     genre TEXT NOT NULL,
+    //     duration INT NOT NULL,
+    //     inserted_at TEXT NOT NULL,
+    //     updated_at TEXT NOT NULL,
+    // );
+    // GRANT ALL PRIVILEGES ON TABLE songs TO developer;
 };
 
 exports.down = pgm => {
