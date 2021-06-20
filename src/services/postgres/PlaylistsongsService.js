@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const {
   Pool,
 } = require('pg');
@@ -37,7 +36,7 @@ class PlaylistsongsService {
       // mendapatkan playlist dari cache
       const result = await this._cacheService.get(`playlist:${playlistId}`);
       return JSON.parse(result);
-    }catch(error){
+    } catch (error) {
       const query = {
         text: `
               SELECT songs.id,songs.title,songs.performer 

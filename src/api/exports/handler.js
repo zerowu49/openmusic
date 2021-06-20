@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
 class ExportsHandler {
-  constructor(playlistsService, exportService,validator) {
+  constructor(playlistsService, exportService, validator) {
     this._playlistsService = playlistsService;
     this._exportService = exportService;
     this._validator = validator;
@@ -20,13 +18,13 @@ class ExportsHandler {
       await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId);
 
       const message = {
-        playlistId: playlistId,
+        playlistId,
         userId: request.auth.credentials.id,
         targetEmail: request.payload.targetEmail,
       };
 
       await this._exportService.sendMessage('export:playlist', JSON.stringify(message));
-      
+
       const response = h.response({
         status: 'success',
         message: 'Permintaan Anda sedang kami proses',

@@ -8,7 +8,7 @@ module.exports = {
     service,
     validator,
   }) => {
-    const uploadsHandler = new UploadsHandler (
+    const uploadsHandler = new UploadsHandler(
       service,
       validator,
     );

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
 class UploadsHandler {
@@ -34,7 +32,7 @@ class UploadsHandler {
         response.code(error.statusCode);
         return response;
       }
- 
+
       // Server ERROR!
       const response = h.response({
         status: 'error',
@@ -45,7 +43,6 @@ class UploadsHandler {
       return response;
     }
   }
-
 }
 
 module.exports = UploadsHandler;

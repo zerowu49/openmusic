@@ -11,7 +11,7 @@ module.exports = {
   }) => {
     const exportsHandler = new ExportsHandler(
       playlistsService,
-      exportService, 
+      exportService,
       validator,
     );
     server.route(routes(exportsHandler));
